@@ -1,10 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { dealCards } from '../models/poker/actions';
 import CardBack from './CardBack';
 
-import { PokerHandRate, RateableCards } from '../libs/poker';
-
-const Deck = ({ getHand }) => (
+const Deck = ({ onDeckClick }) => (
   <ul className="deck">
     <li><CardBack /></li>
     <li><CardBack /></li>
@@ -14,24 +13,13 @@ const Deck = ({ getHand }) => (
     <li><CardBack /></li>
     <li><CardBack /></li>
     <li><CardBack /></li>
-    <li><CardBack onClick={() => getHand()} /></li>
+    <li className="pointer"><CardBack onClick={() => onDeckClick()} /></li>
   </ul>
 );
 
-/*const mapStateToProps = ({ game }) => ({
-  game
-});*/
-
-const mapDispatchToProps = (dispatch, getState) => ({
-  getHand: () => {
-    console.log('-------------------------');
-    console.log(getState());
-    console.log('-------------------------');
-    console.log(dispatch({ type: 'DEAL_CARDS' }));
-    console.log('-------------------------');
-    console.log(getState());
-    console.log('-------------------------');
-    console.log(PokerHandRate(new RateableCards(getState().cards)));
+const mapDispatchToProps = dispatch => ({
+  onDeckClick: () => {
+    dispatch(dealCards());
   }
 });
 

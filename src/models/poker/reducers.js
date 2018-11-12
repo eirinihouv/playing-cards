@@ -1,13 +1,20 @@
 //import { combineReducers } from 'redux';
+import { dealCards } from './actions';
 import { Cards, CardsAndDeck } from '../../libs/poker';
 
-const game = (game = {cards: [], deck: Cards}, action) => {
+const game = {
+  players: [],
+  deck: Cards,
+};
+
+const playersAndDeck = (state = game, action) => {
   switch (action.type) {
-    case 'DEAL_CARDS':
-      return CardsAndDeck(game.deck, 5);
+    case dealCards.type:
+      const cardsAndDeck = CardsAndDeck(state.deck, 5);
+      return {...state, players: [...state.players, { cards: cardsAndDeck.cards }], deck: cardsAndDeck.deck}
     default:
-      return game;
+      return state;
   }
 }; 
 
-export default game;
+export default playersAndDeck;
