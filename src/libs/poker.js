@@ -49,7 +49,10 @@ export const CardsAndDeck = (currentDeck, n = 0) => {
     : currentDeck.slice(0).sort(() => Math.random() - 0.5);
   
   Object.freeze(deck);
-  const cards = Object.freeze(deck.slice(0, n));
+
+  const cards = deck.slice(0, n).sort((x, y) => x.weight - y.weight);
+  Object.freeze(cards);
+  //const cards = Object.freeze(deck.slice(0, n));
 
   return {
     cards,

@@ -1,3 +1,8 @@
+body {
+  background-image: url("../images/cover.jpg");
+  background-size: cover;
+}
+
 .main {
   width: 1000px;
 }
@@ -5,10 +10,14 @@
 .board {
   background-color: green;
   width: 75%;
-  height: 600px;
+  height: 624px;
   border-radius: 10px;
   margin: 0 auto;
   border: 1px solid black;
+}
+
+.deckDiv {
+  padding-top: 230px;
 }
 
 .pointer {

@@ -1,20 +1,12 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import Deck from './Deck';
 import Hand from './Hand';
 
-const Board = ({ players }) => (
-  <div className="board center">
+const Board = () => (
+  <div className="board">
     <Deck />
-    {players.map(
-      (player, index) =>
-        <Hand cards={player.cards} key={index} />
-    )}
+    <Hand />
   </div>
 );
 
-const mapStateToProps = ({ players }) => ({
-  players
-});
-
-export default connect(mapStateToProps)(Board);
+export default Board;

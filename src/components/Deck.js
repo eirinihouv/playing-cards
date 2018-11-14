@@ -1,20 +1,28 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { dealCards } from '../models/poker/actions';
+import { dealCards } from '../models/poker';
 import CardBack from './CardBack';
 
 const Deck = ({ onDeckClick }) => (
-  <ul className="deck">
-    <li><CardBack /></li>
-    <li><CardBack /></li>
-    <li><CardBack /></li>
-    <li><CardBack /></li>
-    <li><CardBack /></li>
-    <li><CardBack /></li>
-    <li><CardBack /></li>
-    <li><CardBack /></li>
-    <li className="pointer"><CardBack onClick={() => onDeckClick()} /></li>
-  </ul>
+  <div className="deckDiv">
+    <ul className="deck">
+      <li><CardBack /></li>
+      <li><CardBack /></li>
+      <li><CardBack /></li>
+      <li><CardBack /></li>
+      <li><CardBack /></li>
+      <li><CardBack /></li>
+      <li><CardBack /></li>
+      <li><CardBack /></li>
+      <li><CardBack /></li>
+      <li><CardBack /></li>
+      <li><CardBack /></li>
+      <li><CardBack /></li>
+      <li><CardBack /></li>
+      <li><CardBack /></li>
+      <li className="pointer"><CardBack onClick={() => onDeckClick()} /></li>
+    </ul>
+  </div>  
 );
 
 const mapDispatchToProps = dispatch => ({
