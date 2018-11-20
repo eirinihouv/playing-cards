@@ -1,8 +1,8 @@
 import React from 'react';
 
 const ResetButton = ({ onClick }) => (
-  <button onClick={onClick}>
-    Reset Game
+  <button className="reset" onClick={onClick}>
+    New Game
   </button>
 );
 

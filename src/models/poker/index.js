@@ -1,8 +1,11 @@
-import { dealCards, resetGame } from './actions';
-import playersAndDeck from './reducers';
+import { dealCards, newGame, selectCard, deselectCard, changeCards } from './actions';
+import poker from './reducers';
 
 export {
   dealCards,
-  resetGame,
-  playersAndDeck,
+  newGame,
+  selectCard,
+  deselectCard,
+  changeCards,
+  poker,
 };

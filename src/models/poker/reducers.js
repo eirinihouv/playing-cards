@@ -1,22 +1,70 @@
-//import { combineReducers } from 'redux';
+import { combineReducers } from 'redux';
 import { Cards, CardsAndDeck } from '../../libs';
-import { dealCards, resetGame } from './';
+import { dealCards, newGame, selectCard, deselectCard, changeCards } from './';
 
-const game = {
-  players: [],
+const playersAndDeckState = {
+  player: {cards: [], type: 'player'},
+  opponent: {cards: [], type: 'opponent'},
   deck: Cards,
 };
 
-const playersAndDeck = (state = game, action) => {
-  switch (action.type) {
+const playersAndDeck = (state = playersAndDeckState, action) => {
+  switch(action.type) {
     case dealCards.type:
-      const cardsAndDeck = CardsAndDeck(state.deck, 5);
-      return {...state, players: [...state.players, { cards: cardsAndDeck.cards }], deck: cardsAndDeck.deck};
-    case resetGame.type:
-      return {players: [], deck: Cards};
+      const playerCardsAndDeck = CardsAndDeck(state.deck, 5);
+      const opponentCardsAndDeck = CardsAndDeck(playerCardsAndDeck.deck, 5);
+      return {
+        ...state, 
+        player: {cards: playerCardsAndDeck.cards, type: 'player'}, 
+        opponent: {cards: opponentCardsAndDeck.cards, type: 'opponent'},
+        deck: opponentCardsAndDeck.deck,
+      };
+    case changeCards.type:
+      const playerCards = state.player.cards.filter(elem => !action.payload.includes(elem));
+      const newCardsAndDeck = CardsAndDeck(state.deck, action.payload.length);
+
+      return {
+        ...state,
+        player: { cards: [...playerCards, ...newCardsAndDeck.cards], type: 'player' },
+        deck: newCardsAndDeck.deck,
+      }
+    case newGame.type:
+      return {
+        player: { cards:[], type: 'player' },
+        opponent: { cards: [], type: 'opponent' },
+        deck: Cards,
+      };
     default:
       return state;
   }
-}; 
+};
 
-export default playersAndDeck;
+const round = (round = 0, action) => {
+  switch (action.type) {
+    case dealCards.type:
+      return round + 1;
+    case newGame.type:
+      return 0;
+    default:
+      return round;
+  }
+};
+
+const selectedCards = (selectedCards = [], action) => {
+  switch (action.type) {
+    case selectCard.type:
+      return [...selectedCards, action.payload];
+    case deselectCard.type:
+      return [...selectedCards.slice(0, selectedCards.indexOf(action.payload)), ...selectedCards.slice(selectedCards.indexOf(action.payload) + 1)];
+    case changeCards.type:
+      return [];    
+    case newGame.type:
+      return [];
+    default:
+      return selectedCards;
+  }
+};
+
+const poker = combineReducers({ playersAndDeck, round, selectedCards });
+
+export default poker;

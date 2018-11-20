@@ -1,20 +1,14 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import Cards from './Cards';
 import HandRate from './HandRate';
+import Player from './Player';
 
-const Hand = ({ players }) => (
-    players.map(
-      player => (
-        <div>
-          <Cards cards={player.cards} />
-          <HandRate cards={player.cards} />
-        </div>
-      )
-    )
+const Hand = ({ cards, type }) => (
+  <div>
+    <Player type={type} />
+    <Cards cards={cards} />
+    <HandRate cards={cards} />
+  </div>
 );
-  
-    
-const mapStateToProps = ({ players }) => ({ players });
 
-export default connect(mapStateToProps)(Hand);
+export default Hand;

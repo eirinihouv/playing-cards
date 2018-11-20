@@ -107,6 +107,41 @@ const PokerRating = {
 
 export const PokerHandRate = cards => Object.entries(PokerRating).find(([rate, is]) => is(cards))[0];
 
+export const cardsRating = (playerRating) => {
+  switch (playerRating) {
+    case 'RoyalFlush':
+      return 10;
+    case 'StraightFlush':
+      return 9;
+    case 'FourOfAKind':
+      return 8;
+    case 'FullHouse':
+      return 7;
+    case 'Flush':
+      return 6;
+    case 'Straight':
+      return 5;
+    case 'ThreeOfAKind':
+      return 4;
+    case 'TwoPair':
+      return 3;
+    case 'OnePair':
+      return 2;
+    default:
+      return 1;
+  }
+};
+
+export const calculateWinner = (playerRating, opponentRating) => {
+  if (playerRating > opponentRating) {
+    return 'Player';
+  } else if (playerRating < opponentRating) {
+    return 'Opponent';
+  } else {
+    
+  }
+};
+
 //
 // Tests
 //
