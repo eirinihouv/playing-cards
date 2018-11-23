@@ -1,4 +1,4 @@
-import { dealCards, newGame, selectCard, deselectCard, changeCards } from './actions';
+import { dealCards, newGame, selectCard, deselectCard, changeCards, showCards } from './actions';
 import poker from './reducers';
 
 export {
@@ -7,5 +7,6 @@ export {
   selectCard,
   deselectCard,
   changeCards,
+  showCards,
   poker,
 };

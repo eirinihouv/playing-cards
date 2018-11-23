@@ -4,19 +4,23 @@ import { dealCards } from '../models/poker';
 import Deck from './Deck';
 import Hand from './Hand';
 import ChangeCards from './ChangeCards';
+import Winner from './Winner';
 
-const Board = ({ player, opponent, onDeckClick }) => (
-  <div className="board">
-    <Hand {...opponent} />
-    <Deck onDeckClick={onDeckClick} />
-    <Hand {...player} />
-    <ChangeCards />
+const Board = ({ player, opponent, onDeckClick, round }) => (
+  <div className="container board">
+    { (round === 1 || round === 2 || round === 3) && <Hand {...opponent} round={round} /> }
+    <Deck onDeckClick={onDeckClick} round={round} />
+    <Winner />
+    { (round === 1 || round === 2 || round === 3) && <Hand {...player} /> }
+    { round === 1 && <ChangeCards /> }
+    
   </div>
 );
 
-const mapStateToProps = ({ playersAndDeck }) => ({
+const mapStateToProps = ({ playersAndDeck, round }) => ({
   player: playersAndDeck.player,
   opponent: playersAndDeck.opponent,
+  round,
 });
 
 const mapDispatchToProps = dispatch => ({

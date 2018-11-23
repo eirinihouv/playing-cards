@@ -1,16 +1,20 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import CheckBoxCard from './CheckBoxCard';
 import Card from './Card';
 
-const Cards = ({ cards }) => (
+const Cards = ({ cards, round }) => (
   <ul className="table">
     {cards.map(
       (card, index) => (
         <li key={index}>
-          <Card card={card} />
+          { (round !== 2 && round !== 3) ? <CheckBoxCard card={card} /> : <Card card={card} /> } 
         </li>
       )
     )}
   </ul>
 );
 
-export default Cards;
+const mapStateToProps = ({ round }) => ({ round });
+
+export default connect(mapStateToProps)(Cards);

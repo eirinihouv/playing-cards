@@ -1,23 +1,19 @@
 import React from 'react';
 import CardBack from './CardBack';
 
-const Deck = ({ onDeckClick }) => (
+const Deck = ({ onDeckClick, round }) => (
   <ul className="deck">
-    <li><CardBack /></li>
-    <li><CardBack /></li>
-    <li><CardBack /></li>
-    <li><CardBack /></li>
-    <li><CardBack /></li>
-    <li><CardBack /></li>
-    <li><CardBack /></li>
-    <li><CardBack /></li>
-    <li><CardBack /></li>
-    <li><CardBack /></li>
-    <li><CardBack /></li>
-    <li><CardBack /></li>
-    <li><CardBack /></li>
-    <li><CardBack /></li>
-    <li className="pointer"><CardBack onClick={() => onDeckClick()} /></li>
+    <CardBack />
+    <CardBack />
+    <CardBack />
+    <CardBack />
+    <CardBack />
+    <CardBack />
+    <CardBack />
+    <CardBack />
+    <CardBack />
+    <CardBack />
+    { round === 0 ? <li className="pointer"><a className="card back" onClick={() => onDeckClick()}></a></li> : <CardBack  /> }
   </ul>
 );
 

@@ -47,10 +47,11 @@ export const CardsAndDeck = (currentDeck, n = 0) => {
   const deck = currentDeck !== Cards
     ? currentDeck
     : currentDeck.slice(0).sort(() => Math.random() - 0.5);
-  
+
   Object.freeze(deck);
 
   const cards = deck.slice(0, n).sort((x, y) => x.weight - y.weight);
+  
   Object.freeze(cards);
   //const cards = Object.freeze(deck.slice(0, n));
 
@@ -92,7 +93,7 @@ export class RateableCards {
 //
 // Poker Ratings
 //
-const PokerRating = {
+/*const PokerRating = {
   RoyalFlush: hand => hand.hasInARow(5) && hand.hasOfSameSuit(5) && hand.hasAce(),
   StraightFlush: hand => hand.hasInARow(5) && hand.hasOfSameSuit(5),
   FourOfAKind: hand => hand.hasOfSameRank(4),
@@ -103,44 +104,59 @@ const PokerRating = {
   TwoPair: hand => hand.hasOfSameRank(2) >= 2,
   OnePair: hand => hand.hasOfSameRank(2),
   HighCard: hand => hand.hasOfSameRank(1) >= 5,
+};*/
+
+const PokerRating = {
+  RoyalFlush: {
+    func: hand => hand.hasInARow(5) && hand.hasOfSameSuit(5) && hand.hasAce(),
+    power: 'J'
+  },
+  StraightFlush: {
+    func: hand => hand.hasInARow(5) && hand.hasOfSameSuit(5),
+    power: 'I'
+  },
+  FourOfAKind: {
+    func: hand => hand.hasOfSameRank(4),
+    power: 'H'
+  },
+  FullHouse: {
+    func: hand => hand.hasOfSameRank(3) && hand.hasOfSameRank(2),
+    power: 'G'
+  },
+  Flush: {
+    func: hand => hand.hasOfSameSuit(5),
+    power: 'F'
+  },
+  Straight: {
+    func: hand => hand.hasInARow(5),
+    power: 'E'
+  },
+  ThreeOfAKind: {
+    func: hand => hand.hasOfSameRank(3),
+    power: 'D'
+  },
+  TwoPair: {
+    func: hand => hand.hasOfSameRank(2) >= 2,
+    power: 'C'
+  },
+  OnePair: {
+    func: hand => hand.hasOfSameRank(2),
+    power: 'B'
+  },
+  HighCard: {
+    func: hand => hand.hasOfSameRank(1) >= 5,
+    power: 'A'
+  },
 };
 
-export const PokerHandRate = cards => Object.entries(PokerRating).find(([rate, is]) => is(cards))[0];
+//export const PokerHandRate = cards => Object.entries(PokerRating).find(([rate, is]) => is(cards))[0];
+export const PokerHandRate = cards => Object.entries(PokerRating).find(([rate, is]) => is.func(cards));
 
-export const cardsRating = (playerRating) => {
-  switch (playerRating) {
-    case 'RoyalFlush':
-      return 10;
-    case 'StraightFlush':
-      return 9;
-    case 'FourOfAKind':
-      return 8;
-    case 'FullHouse':
-      return 7;
-    case 'Flush':
-      return 6;
-    case 'Straight':
-      return 5;
-    case 'ThreeOfAKind':
-      return 4;
-    case 'TwoPair':
-      return 3;
-    case 'OnePair':
-      return 2;
-    default:
-      return 1;
-  }
-};
-
-export const calculateWinner = (playerRating, opponentRating) => {
-  if (playerRating > opponentRating) {
-    return 'Player';
-  } else if (playerRating < opponentRating) {
-    return 'Opponent';
-  } else {
-    
-  }
-};
+export const Combo = (cards) => {
+  const power = PokerHandRate(new RateableCards(cards))[1].power;
+  const powerOfString = power;
+  return powerOfString;
+}
 
 //
 // Tests

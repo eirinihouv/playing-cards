@@ -58,7 +58,7 @@ body {
   cursor: pointer;
 }
 
-.change {
+.change, .show {
   background-color: rgb(182, 179, 41);
   border: none;
   color: white;
@@ -68,6 +68,12 @@ body {
   display: inline-block;
   font-size: 12px;
   cursor: pointer;
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.7;
+  background-color: #A9A9A9;
 }
 
 .whiteColor {

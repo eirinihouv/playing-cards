@@ -1,5 +1,5 @@
 import React from 'react';
 
-const CardBack = ({ onClick }) => ( <div className="card back" onClick={onClick}>*</div> );
+const CardBack = () => <li><div className="card back">*</div></li>
 
 export default CardBack;
