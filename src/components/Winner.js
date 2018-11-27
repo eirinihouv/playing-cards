@@ -8,6 +8,7 @@ const Winner = ({ player, opponent, round }) => (
       Combo(player.cards) > Combo(opponent.cards) ? 
         'Winner Player' : 
         'Winner Opponent')}
+    
   </div>
 );
 

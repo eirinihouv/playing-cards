@@ -4,7 +4,7 @@ import { changeCards } from '../models/poker';
 
 const ChangeCards = ({ selectedCards, onChangeCardsClick, round }) => (
   <button 
-    className={`change ${round === 2 && `disabled`}`} 
+    className="change" 
     onClick={() => onChangeCardsClick(selectedCards)} >
     Change Cards
   </button>

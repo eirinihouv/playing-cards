@@ -9,7 +9,7 @@ const Hand = ({ cards, type, round }) => (
   <div>
     <Player type={type} />
     {type === 'opponent' ? round < 3 ? <CardBackHand /> : <Cards cards={cards} /> : <Cards cards={cards} /> }
-    <HandRate cards={cards} />
+    {type === 'player' ? <HandRate cards={cards} /> : round === 3 && <HandRate cards={cards} />} 
     {round === 2 && <ShowCards />}
   </div>
 );

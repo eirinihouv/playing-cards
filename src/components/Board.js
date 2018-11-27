@@ -7,13 +7,12 @@ import ChangeCards from './ChangeCards';
 import Winner from './Winner';
 
 const Board = ({ player, opponent, onDeckClick, round }) => (
-  <div className="container board">
+  <div className="board">
     { (round === 1 || round === 2 || round === 3) && <Hand {...opponent} round={round} /> }
     <Deck onDeckClick={onDeckClick} round={round} />
     <Winner />
     { (round === 1 || round === 2 || round === 3) && <Hand {...player} /> }
     { round === 1 && <ChangeCards /> }
-    
   </div>
 );
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { selectCard, deselectCard } from '../models/poker';
+import { RateableCards } from '../libs';
 
 const CheckBoxCard = ({ card, handleChecked, selectedCards }) => {
   const rand = Math.floor(Math.random() * 10);
@@ -18,9 +19,7 @@ const CheckBoxCard = ({ card, handleChecked, selectedCards }) => {
   );
 };
 
-const mapStateToProps = ({ selectedCards }) => ({
-  selectedCards
-});
+const mapStateToProps = ({ selectedCards }) => ({ selectedCards });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   handleChecked: (selectedCards) => {

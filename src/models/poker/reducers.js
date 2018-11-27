@@ -59,7 +59,10 @@ const selectedCards = (selectedCards = [], action) => {
     case selectCard.type:
       return [...selectedCards, action.payload];
     case deselectCard.type:
-      return [...selectedCards.slice(0, selectedCards.indexOf(action.payload)), ...selectedCards.slice(selectedCards.indexOf(action.payload) + 1)];
+      return [
+        ...selectedCards.slice(0, selectedCards.indexOf(action.payload)),
+        ...selectedCards.slice(selectedCards.indexOf(action.payload) + 1)
+      ];
     case changeCards.type:
       return [];
     case newGame.type:

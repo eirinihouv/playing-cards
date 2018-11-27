@@ -153,10 +153,17 @@ const PokerRating = {
 export const PokerHandRate = cards => Object.entries(PokerRating).find(([rate, is]) => is.func(cards));
 
 export const Combo = (cards) => {
-  const power = PokerHandRate(new RateableCards(cards))[1].power;
-  const powerOfString = power;
-  return powerOfString;
-}
+  const handPower = PokerHandRate(new RateableCards(cards))[1].power;
+  const cardsPower = _.sortBy(_.groupBy(cards, 'weight'), 'length')
+  .map(
+      elem => String.fromCharCode(97 + parseInt(elem[0].weight)).toUpperCase()
+  )
+  .reduceRight(
+      (acc, curr) => acc + curr,
+      ""
+  );
+  return handPower + cardsPower;
+};
 
 //
 // Tests

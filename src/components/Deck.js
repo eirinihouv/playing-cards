@@ -13,7 +13,7 @@ const Deck = ({ onDeckClick, round }) => (
     <CardBack />
     <CardBack />
     <CardBack />
-    { round === 0 ? <li className="pointer"><a className="card back" onClick={() => onDeckClick()}></a></li> : <CardBack  /> }
+    { round === 0 ? <li className="pointer"><a href="#" className="card back" onClick={() => onDeckClick()}></a></li> : <CardBack  /> }
   </ul>
 );
 
