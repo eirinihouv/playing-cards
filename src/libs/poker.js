@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-// Example implementation used in the Think Functional course
+// Example implementation used in the Think istional course
 
 //
 //  Util Functions
@@ -108,59 +108,57 @@ export class RateableCards {
 
 const PokerRating = {
   RoyalFlush: {
-    func: hand => hand.hasInARow(5) && hand.hasOfSameSuit(5) && hand.hasAce(),
+    is: hand => hand.hasInARow(5) && hand.hasOfSameSuit(5) && hand.hasAce(),
     power: 'J'
   },
   StraightFlush: {
-    func: hand => hand.hasInARow(5) && hand.hasOfSameSuit(5),
+    is: hand => hand.hasInARow(5) && hand.hasOfSameSuit(5),
     power: 'I'
   },
   FourOfAKind: {
-    func: hand => hand.hasOfSameRank(4),
+    is: hand => hand.hasOfSameRank(4),
     power: 'H'
   },
   FullHouse: {
-    func: hand => hand.hasOfSameRank(3) && hand.hasOfSameRank(2),
+    is: hand => hand.hasOfSameRank(3) && hand.hasOfSameRank(2),
     power: 'G'
   },
   Flush: {
-    func: hand => hand.hasOfSameSuit(5),
+    is: hand => hand.hasOfSameSuit(5),
     power: 'F'
   },
   Straight: {
-    func: hand => hand.hasInARow(5),
+    is: hand => hand.hasInARow(5),
     power: 'E'
   },
   ThreeOfAKind: {
-    func: hand => hand.hasOfSameRank(3),
+    is: hand => hand.hasOfSameRank(3),
     power: 'D'
   },
   TwoPair: {
-    func: hand => hand.hasOfSameRank(2) >= 2,
+    is: hand => hand.hasOfSameRank(2) >= 2,
     power: 'C'
   },
   OnePair: {
-    func: hand => hand.hasOfSameRank(2),
+    is: hand => hand.hasOfSameRank(2),
     power: 'B'
   },
   HighCard: {
-    func: hand => hand.hasOfSameRank(1) >= 5,
+    is: hand => hand.hasOfSameRank(1) >= 5,
     power: 'A'
   },
 };
 
 //export const PokerHandRate = cards => Object.entries(PokerRating).find(([rate, is]) => is(cards))[0];
-export const PokerHandRate = cards => Object.entries(PokerRating).find(([rate, is]) => is.func(cards));
+export const PokerHandRate = cards => Object.entries(PokerRating).find(([rate, {is}]) => is(cards));
 
 export const Combo = (cards) => {
   const handPower = PokerHandRate(new RateableCards(cards))[1].power;
   const cardsPower = _.sortBy(_.groupBy(cards, 'weight'), 'length')
-  .map(
-      elem => String.fromCharCode(97 + parseInt(elem[0].weight)).toUpperCase()
-  )
+  .map( elem => String.fromCharCode(65 + parseInt(elem[0].weight)) )
   .reduceRight(
-      (acc, curr) => acc + curr,
-      ""
+    (acc, curr) => acc + curr,
+    ""
   );
   return handPower + cardsPower;
 };

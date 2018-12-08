@@ -6,8 +6,8 @@ const Winner = ({ player, opponent, round }) => (
   <div className="whiteColor">
     {round === 3 && ( 
       Combo(player.cards) > Combo(opponent.cards) ? 
-        'Winner Player' : 
-        'Winner Opponent')}
+        'Winner: Player' : 
+        'Winner: Opponent')}
     
   </div>
 );
