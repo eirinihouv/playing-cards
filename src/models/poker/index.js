@@ -1,5 +1,6 @@
 import { dealCards, newGame, selectCard, deselectCard, changeCards, showCards } from './actions';
-import poker from './reducers';
+import { rootReducer } from './reducers';
+import { rootEpic } from './epics';
 
 export {
   dealCards,
@@ -8,5 +9,6 @@ export {
   deselectCard,
   changeCards,
   showCards,
-  poker,
+  rootReducer,
+  rootEpic,
 };

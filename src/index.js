@@ -1,21 +1,18 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
+import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { poker } from './models/poker';
+import configureStore from './models/configureStore';
 import App from './App';
 import './styles/index.css';
 import * as serviceWorker from './serviceWorker';
 
-const store = createStore(
-  poker, /* preloadedState, */ window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);
+const store = configureStore();
 
-ReactDOM.render(
+render(
   <Provider store={store}>
     <App />
   </Provider>,
-   document.getElementById('root')
+  document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change

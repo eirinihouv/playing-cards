@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import { Cards, CardsAndDeck } from '../../libs';
-import { dealCards, newGame, selectCard, deselectCard, changeCards, showCards } from './';
+import { Cards } from '../../libs';
+import { dealCardsSuccess, newGame, selectCard, deselectCardSuccess, changeCards, changeCardsSuccess, showCards } from './actions';
 
 const playersAndDeckState = {
   player: {cards: [], type: 'player'},
@@ -10,29 +10,19 @@ const playersAndDeckState = {
 
 const playersAndDeck = (state = playersAndDeckState, action) => {
   switch(action.type) {
-    case dealCards.type:
-      const playerCardsAndDeck = CardsAndDeck(state.deck, 5);
-      const opponentCardsAndDeck = CardsAndDeck(playerCardsAndDeck.deck, 5);
+    case dealCardsSuccess.type:
       return {
         ...state, 
-        player: {cards: playerCardsAndDeck.cards, type: 'player'}, 
-        opponent: {cards: opponentCardsAndDeck.cards, type: 'opponent'},
-        deck: opponentCardsAndDeck.deck,
+        ...action.payload,
       };
-    case changeCards.type:
-      const playerCards = state.player.cards.filter(elem => !action.payload.includes(elem));
-      const newCardsAndDeck = CardsAndDeck(state.deck, action.payload.length);
-      const newCards = [...playerCards, ...newCardsAndDeck.cards].sort((x, y) => x.weight - y.weight);
+    case changeCardsSuccess.type:
       return {
         ...state,
-        player: { cards: newCards, type: 'player' },
-        deck: newCardsAndDeck.deck,
-      }
+        ...action.payload,
+      };
     case newGame.type:
       return {
-        player: { cards:[], type: 'player' },
-        opponent: { cards: [], type: 'opponent' },
-        deck: Cards,
+        ...playersAndDeckState
       };
     default:
       return state;
@@ -41,7 +31,7 @@ const playersAndDeck = (state = playersAndDeckState, action) => {
 
 const round = (round = 0, action) => {
   switch (action.type) {
-    case dealCards.type:
+    case dealCardsSuccess.type:
       return 1;
     case changeCards.type:
       return 2;
@@ -58,10 +48,9 @@ const selectedCards = (selectedCards = [], action) => {
   switch (action.type) {
     case selectCard.type:
       return [...selectedCards, action.payload];
-    case deselectCard.type:
+    case deselectCardSuccess.type:
       return [
-        ...selectedCards.slice(0, selectedCards.indexOf(action.payload)),
-        ...selectedCards.slice(selectedCards.indexOf(action.payload) + 1)
+        ...action.payload
       ];
     case changeCards.type:
       return [];
@@ -72,6 +61,4 @@ const selectedCards = (selectedCards = [], action) => {
   }
 };
 
-const poker = combineReducers({ playersAndDeck, round, selectedCards });
-
-export default poker;
+export const rootReducer = combineReducers({ playersAndDeck, round, selectedCards });
